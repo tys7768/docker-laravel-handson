@@ -1,0 +1,7 @@
+version: "3.8" #このファイルのバージョン。別になんでもいい<major-v>.<minor-v>
+services:
+  app: #サービス名。任意の名前をつける (ここはAPサーバなのでappとする)
+    build: ./infra/php #docker buildを行う際のカレントディレクトリを指定する(Build Context)
+    # Dockerfileが置かれているディレクトリを指定している
+    volumes: #ホストのディレクトリとか名前付きボリュームをコンテナへマウントしたいときに使う
+      - ./backend:/work #ホストのbackendディレクトリを、コンテナ/workへマウントしている
