@@ -5,3 +5,15 @@ services:
     # Dockerfileが置かれているディレクトリを指定している
     volumes: #ホストのディレクトリとか名前付きボリュームをコンテナへマウントしたいときに使う
       - ./backend:/work #ホストのbackendディレクトリを、コンテナ/workへマウントしている
+  web:
+    # コンテナを起動させるイメージ 公式のnginxイメージをそのまま使用する
+    # https://hub.docker.com/_/nginx
+    image: nginx:1.18-alpine
+    # nginxが、外側からアクセスできる公開ポート
+    # {ホスト側}(Mac):{コンテナ側}
+    ports:
+      - 10080:80
+    volumes:
+      - ./backend:/work
+      - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    working_dir: /work
